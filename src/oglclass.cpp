@@ -18,6 +18,8 @@ static const unsigned int INDICES[] =
   2, 3, 0
 };
 
+//////////////////// IMPLEMENTATION ////////////////////
+
 oglClass::oglClass(QWidget *parent)
     : QOpenGLWidget(parent)
 {
@@ -73,7 +75,7 @@ void oglClass::initializeGL()
 
     // texture
     {
-        psTexture tex = std::make_shared<QOpenGLTexture>(QImage(":/textures/tex1.jpg").mirrored());
+        TexturePtr tex = std::make_shared<QOpenGLTexture>(QImage(":/textures/tex1.jpg").mirrored());
         m_texArray.push_back(tex);
 
         tex = std::make_shared<QOpenGLTexture>(QImage(":/textures/tex2.jpg").mirrored());
@@ -103,6 +105,8 @@ void oglClass::paintGL()
     glBindVertexArray(m_vao);
 
     m_shaderProg.setUniformValue("model", m_cam.getModel());
+    m_shaderProg.setUniformValue("view", m_cam.getView());
+    m_shaderProg.setUniformValue("projection", m_cam.getProjection());
 
     //glDrawArrays(GL_TRIANGLES, 0, 3);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

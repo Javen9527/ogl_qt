@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/shaders">
+        <file alias="vertex.fs">../resources/shaders/vertex.fs</file>
+        <file alias="vertex.vs">../resources/shaders/vertex.vs</file>
+    </qresource>
+
+    <qresource prefix="/myicons">
+        <file alias="icon.PNG">../resources/icons/icon.PNG</file>
+    </qresource>
+
+    <qresource prefix="/textures">
+        <file alias="tex1.jpg">../resources/textures/tex1.jpg</file>
+        <file alias="tex2.jpg">../resources/textures/tex2.jpg</file>
+    </qresource>
+
+</RCC>

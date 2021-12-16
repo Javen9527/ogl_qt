@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QOpenGLWidget>
-#include <QOpenGLFunctions_3_3_Core>
+#include <QOpenGLFunctions>
 
 #include <QOpenGLShaderProgram>
 #include <QOpenGLTexture>
@@ -14,13 +14,14 @@
 #include "utility.h"
 #include "camera.h"
 
-class oglClass : public QOpenGLWidget, QOpenGLFunctions_3_3_Core
+class oglClass : public QOpenGLWidget, QOpenGLFunctions
 {
     Q_OBJECT
 
 public:
-    typedef std::shared_ptr<QOpenGLTexture> psTexture;
+    typedef std::shared_ptr<QOpenGLTexture> TexturePtr;
 
+public:
     explicit oglClass(QWidget *parent = nullptr);
     ~oglClass();
 
@@ -32,13 +33,13 @@ protected:
 private:
     QTimer m_timer;
 
-    Camera m_cam;
+    cam::Camera m_cam;
     unsigned int m_vao;
     unsigned int m_vbo;
     unsigned int m_ebo;
 
     QOpenGLShaderProgram m_shaderProg;
-    std::vector<psTexture> m_texArray;
+    std::vector<TexturePtr> m_texArray;
 
 signals:
 
