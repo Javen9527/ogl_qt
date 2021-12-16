@@ -1,9 +1,9 @@
 ################ DEFAULT SETTING ################
 
-QT += core gui
+QT     += core gui
 CONFIG += c++11
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_DEPRECATED_WARNINGS
 # disables all the APIs deprecated before Qt 6.0.0
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    
@@ -11,7 +11,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 ################ FILE ORGANIZATION ################
 
 # include
-INCLUDEPATH += ../include
+INCLUDEPATH += \
+    ../include
 
 # headers
 HEADERS += \
@@ -28,18 +29,21 @@ SOURCES += \
     ../src/oglclass.cpp \
 
 # ui file
-FORMS += oglwindow.ui
-
+FORMS = oglwindow.ui
 # resources file
-RESOURCES += res.qrc
+RESOURCES = res.qrc
 
 ################ BUILDING SETTING ################
 TEMPLATE = app
-TARGET = oglDemo
+TARGET   = oglDemo
 
-CONFIG += release
-DESTDIR += build
-OBJECTS_DIR += build/tmp
+CONFIG += debug
+
+DESTDIR     = build/app
+OBJECTS_DIR = build/tmp
+UI_DIR      = build/gen
+RCC_DIR     = build/gen
+MOC_DIR     = build/gen
 
 
 
