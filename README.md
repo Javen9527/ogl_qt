@@ -28,4 +28,16 @@ This is a repo for my opengl on qt platform
 
 -------------------------------------------------------------------------------
 
+## QT 项目管理
 
+### pro 文件（qmake）
+
+- 目录结构
+    * example
+        * 案例代码
+        * .pro
+        * .qrc
+        * .ui
+    * include
+    * src
+    * resources
