@@ -28,9 +28,9 @@ public:
     ~oglClass();
 
 protected:
+    void paintGL() override;
     void initializeGL() override;
     void resizeGL(int w, int h) override;
-    void paintGL() override;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
