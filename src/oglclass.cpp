@@ -1,6 +1,7 @@
 #include "oglclass.h"
 
 #include <QDebug>
+#include <QVector3D>
 
 // global
 static const float DATA[] =
@@ -22,6 +23,8 @@ static const unsigned int INDICES[] =
 
 oglClass::oglClass(QWidget *parent)
     : QOpenGLWidget(parent)
+    , m_scribbling(false)
+    , m_cam(0, 0, 0, 0, 1, 0)
 {
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(on_timeout()));
     m_timer.start(100);
@@ -104,13 +107,45 @@ void oglClass::paintGL()
 
     glBindVertexArray(m_vao);
 
-    m_shaderProg.setUniformValue("model", m_cam.getModel());
+    QMatrix4x4 model;
+    m_shaderProg.setUniformValue("model", model);
     m_shaderProg.setUniformValue("view", m_cam.getView());
-    m_shaderProg.setUniformValue("projection", m_cam.getProjection());
+    QMatrix4x4 projection;
+    //projection.perspective(qDegreesToRadians(m_cam.getZoom()), 800.0/600.0, 0.1f, 100.0f);
+    m_shaderProg.setUniformValue("projection", projection);
 
     //glDrawArrays(GL_TRIANGLES, 0, 3);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+}
+
+void oglClass::mouseMoveEvent(QMouseEvent *event)
+{
+    if((event->buttons() & Qt::LeftButton) && m_scribbling)
+    {
+        float xOffset = event->pos().x() - m_lastCursorPos.x();
+        float yOffset = m_lastCursorPos.y() - event->pos().y();
+
+        m_lastCursorPos = event->pos();
+        m_cam.processMouseMovement(xOffset, yOffset);
+    }
+}
+
+void oglClass::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton)
+    {
+        m_lastCursorPos = event->pos();
+        m_scribbling = true;
+    }
+}
+
+void oglClass::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton && m_scribbling)
+    {
+        m_scribbling = false;
+    }
 }
 
 void oglClass::resizeGL(int w, int h)

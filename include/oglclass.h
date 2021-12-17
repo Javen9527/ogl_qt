@@ -7,6 +7,8 @@
 #include <QOpenGLTexture>
 
 #include <QTimer>
+#include <QPoint>
+#include <QMouseEvent>
 
 #include <vector>
 #include <memory>
@@ -26,9 +28,14 @@ public:
     ~oglClass();
 
 protected:
-    virtual void initializeGL();
-    virtual void resizeGL(int w, int h);
-    virtual void paintGL();
+    void initializeGL() override;
+    void resizeGL(int w, int h) override;
+    void paintGL() override;
+
+protected:
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     QTimer m_timer;
@@ -40,6 +47,9 @@ private:
 
     QOpenGLShaderProgram m_shaderProg;
     std::vector<TexturePtr> m_texArray;
+
+    bool   m_scribbling;
+    QPoint m_lastCursorPos;
 
 signals:
 
