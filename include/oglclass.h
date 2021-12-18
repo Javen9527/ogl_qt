@@ -1,7 +1,12 @@
 #pragma once
 
 #include <QOpenGLWidget>
+
+#ifdef __APPLE__
 #include <QOpenGLFunctions>
+#else
+#include <QOpenGLFunctions_3_3_Core>
+#endif
 
 #include <QOpenGLShaderProgram>
 #include <QOpenGLTexture>
@@ -16,7 +21,11 @@
 #include "utility.h"
 #include "camera.h"
 
+#ifdef __APPLE__
 class oglClass : public QOpenGLWidget, QOpenGLFunctions
+#else
+class oglClass : public QOpenGLWidget, QOpenGLFunctions_3_3_Core
+#endif
 {
     Q_OBJECT
 
